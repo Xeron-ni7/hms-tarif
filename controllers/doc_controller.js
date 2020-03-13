@@ -53,7 +53,7 @@ router.get('/add_doctor',function(req,res){
 
 router.post('/add_doctor',upload.single("image"),function(req,res){
 
-        db.add_doctor(req.body.first_name,req.body.last_name,req.body.email,req.body.dob,req.body.gender,req.body.address,req.body.phone,req.file.filename,req.body.department,req.body.biography);
+        db.add_doctor(req.body.first_name,req.body.last_name,req.body.email,req.body.dob,req.body.gender,req.body.address,req.body.phone,req.file.filename,req.body.department,req.body.biography,req.body.time);
     if(db.add_doctor){
         console.log('1 doctor inserted');
     }

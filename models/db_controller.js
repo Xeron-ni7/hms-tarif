@@ -55,8 +55,8 @@ module.exports.verify = function (username,email,token,callback){
     con.query(query,callback);
 }
 
-module.exports.add_doctor= function(first_name,last_name,email,dob,gender,address,phone,image,department,biography,callback){
-    var query = "INSERT INTO `doctor`(`first_name`,`last_name`,`email`,`dob`,`gender`,`address`,`phone`,`image`,`department`,`biography`) values ('"+first_name+"','"+last_name+"','"+email+"','"+dob+"','"+gender+"','"+address+"','"+phone+"','"+image+"','"+department+"','"+biography+"')";
+module.exports.add_doctor= function(first_name,last_name,email,dob,gender,address,phone,image,department,biography,time,callback){
+    var query = "INSERT INTO `doctor`(`first_name`,`last_name`,`email`,`dob`,`gender`,`address`,`phone`,`image`,`department`,`biography`,`times`) values ('"+first_name+"','"+last_name+"','"+email+"','"+dob+"','"+gender+"','"+address+"','"+phone+"','"+image+"','"+department+"','"+biography+"','"+time+"')";
     con.query(query,callback);
  
     
