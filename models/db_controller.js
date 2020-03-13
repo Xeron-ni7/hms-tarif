@@ -37,6 +37,10 @@ con.connect(function(err){
 module.exports.signup = function(username,email,password,status,callback) {
     var query =  "INSERT INTO `users`(`username`,`email`,`password`,`email_status`) VALUES ('" + username + "','" + email + "','" + password + "','"+status+"')";
     con.query(query,callback);
+    query =  "INSERT INTO `patients`(`id`) VALUES ((select id from users where email='"+email+"'))";
+    con.query(query,()=>{
+        console.log("done");
+    });
 }
 
 
@@ -54,9 +58,40 @@ module.exports.verify = function (username,email,token,callback){
 module.exports.add_doctor= function(first_name,last_name,email,dob,gender,address,phone,image,department,biography,callback){
     var query = "INSERT INTO `doctor`(`first_name`,`last_name`,`email`,`dob`,`gender`,`address`,`phone`,`image`,`department`,`biography`) values ('"+first_name+"','"+last_name+"','"+email+"','"+dob+"','"+gender+"','"+address+"','"+phone+"','"+image+"','"+department+"','"+biography+"')";
     con.query(query,callback);
-    console.log(query);
+ 
     
 }
+
+
+module.exports.updateUserName = function(data,id,callback){
+    console.log(data);
+
+    var query = `update users set username='${data}' where id=${id}`;
+    console.log(query);
+    con.query(query,callback);
+}
+
+module.exports.updateEmail = function(data,id,callback){
+    var query = `update users set email='${data}' where id=${id}`;
+    con.query(query,callback);
+}
+
+module.exports.updatePassword = function(data,id,callback){
+    var query = `update users set password='${data}' where id=${id}`;
+    con.query(query,callback);
+}
+
+module.exports.updateAddress = function(data,id,callback){
+    var query = `update patients set address='${data}' where id=${id}`;
+    con.query(query,callback);
+}
+
+module.exports.updateCause = function(data,id,callback){
+    var query = `update patients set cause='${data}' where id=${id}`;
+    con.query(query,callback);
+}
+
+
 
 module.exports.getAllDoc = function(callback){
     var query = "select * from doctor" ;
@@ -78,8 +113,22 @@ module.exports.getDocbyId = function(id,callback){
     con.query(query,callback);
 }
 
+module.exports.getDocByName = function(name,callback){
+    var query = "select * from doctor where first_name like '%"+name+"%'";
+    con.query(query,callback);
+}
+module.exports.getappointmentbyDidNew=function(id,callback){
+    var query = "select * from appointment where did="+id;
+    con.query(query,callback);
+}
+
 module.exports.getEmpbyId = function(id,callback){
     var query = "select * from employee where id ="+id;
+    con.query(query,callback);
+}
+
+module.exports.getPatientAllData = function(id,callback){
+    var query = "select * from users,patients where users.id ="+id+" and patients.id=users.id";
     con.query(query,callback);
 }
 
@@ -134,8 +183,13 @@ module.exports.addAppointment =function(pid,did,time,callback){
     con.query(query,callback);
 }
 
-module.exports.getallappointment = function(callback){
-    var query = "select * from appointment";
+// module.exports.getallappointment = function(callback){
+//     var query = "select * from appointment";
+//     con.query(query,callback);
+// }
+
+module.exports.getallappointment = function(id,callback){
+    var query = "select * from appointment,users where appointment.did="+id+" and appointment.pid=users.id";
     con.query(query,callback);
 }
 
@@ -159,12 +213,12 @@ module.exports.getallappointment = function(callback){
  }
 
  module.exports.getappointmentbyPid = function(id,callback){
-    var query = "select * from appointment where pid="+id;
-    console.log(query);
+    var query = "select * from appointment,doctor where pid="+id+" and appointment.did=doctor.id";
+    //console.log(query);
     con.query(query,callback);
 }
 module.exports.getappointmentbyDid = function(id,callback){
-    var query = "select * from appointment where did="+id;
+    var query = "select * from users,patients,appointment where did="+id+" and appointment.pid=users.id and patients.id=appointment.pid";
     console.log(query);
     con.query(query,callback);
 }
@@ -260,6 +314,47 @@ module.exports.matchtoken = function(id,token,callback){
 
 module.exports.updateverify = function (email,email_status,callback){
     var query = "update `users` set `email_status`='"+email_status+"' where `email`='"+email+"'";
+    con.query(query,callback);
+    
+}
+
+module.exports.updateAppointment = function (id,callback){
+    var query = "update `appointment` set `status`=1 where id="+id;
+    con.query(query,callback);
+    
+}
+
+module.exports.addMedicine = function (data,callback){
+    
+con.query(`select price,count from medicine where mid=${data.mid}`,(e,r,d)=>{
+    let pp=data.count*r[0].price;
+    var query = `insert into fee (pid,details,count,pp) values(${data.pid},(select name from medicine where mid=${data.mid}),${data.count},${pp})`;
+     
+    con.query(query,callback);
+    query=`update medicine set count=${r[0].count-data.count} where mid=${data.mid}`;
+    con.query(query,(e,r,d)=>{
+        console.log(query);
+    });
+
+});
+   
+    
+}
+
+
+module.exports.getFee=function(pid,callback){
+    var query="select * from fee where pid="+pid;
+    con.query(query,callback);
+}
+
+module.exports.updateCancelAppointment = function (id,callback){
+    var query = "delete from appointment where id="+id;
+    con.query(query,callback);
+    
+}
+
+module.exports.updateCancelAppointmentByP = function (id,pid,callback){
+    var query = "delete from appointment where did="+id+" and pid="+pid;
     con.query(query,callback);
     
 }

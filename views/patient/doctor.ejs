@@ -31,17 +31,55 @@
 			<a id="toggle_btn" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
             <a id="mobile_btn" class="mobile_btn float-left" href="#sidebar"><i class="fa fa-bars"></i></a>
             <ul class="nav user-menu float-right">
-              
+                <li class="nav-item dropdown d-none d-sm-block">
+                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown"><i class="fa fa-bell-o"></i> <span class="badge badge-pill bg-danger float-right"><%=d.length%></span></a>
+                    <div class="dropdown-menu notifications">
+                        <div class="topnav-dropdown-header">
+                            <span>Notifications</span>
+                        </div>
+                        <div class="drop-scroll">
+                            <ul class="notification-list">
+                              <%if(d!=null){%>
+                                <%for(let i=0;i<d.length ;i++){%>
+                                 
+                                <li class="notification-message" onclick="showDetails('<%=data[i].id%>')">
+                                    <a href="activities.html">
+                                        <div class="media">
+											<span class="avatar">
+												<img alt="John Doe" src="/ext/assets/img/user.jpg" class="img-fluid">
+											</span>
+											<div class="media-body">
+												<p class="noti-details"> <span class="noti-title">Patient appointment booking at <%=d[i].date%></span></p>
+												<p class="noti-time"><span class="notification-time">0 mins ago</span></p>
+											</div>
+                                        </div>
+                                    </a>
+                                </li>
+
+                                <%}%>
+                               
+                                <%}%>
+                            </ul>
+                        </div>
+                        <div class="topnav-dropdown-footer">
+                            <a href="activities.html">View all Notifications</a>
+                        </div>
+                    </div>
+                </li>
+                <li class="nav-item dropdown d-none d-sm-block">
+                    <a href="javascript:void(0);" id="open_msg_box" class="hasnotifications nav-link"><i class="fa fa-comment-o"></i> <span class="badge badge-pill bg-danger float-right">8</span></a>
+                </li>
                 <li class="nav-item dropdown has-arrow">
                     <a href="#" class="dropdown-toggle nav-link user-link" data-toggle="dropdown">
                         <span class="user-img">
 							<img class="rounded-circle" src="/ext/assets/img/user.jpg" width="24" alt="Admin">
 							<span class="status online"></span>
 						</span>
-						<span>Patient</span>
+						<span>Admin</span>
                     </a>
 					<div class="dropdown-menu">
-						<a class="dropdown-item" href="/patient/profile">My Profile</a>
+						<a class="dropdown-item" href="/profile">My Profile</a>
+						<a class="dropdown-item" href="/edit-profile">Edit Profile</a>
 						
 						<a class="dropdown-item" href="/logout">Logout</a>
 					</div>
@@ -50,8 +88,8 @@
             <div class="dropdown mobile-user-menu float-right">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="/patient/profile">My Profile</a>
-
+                    <a class="dropdown-item" href="/profile">My Profile</a>
+                    <a class="dropdown-item" href="/edit-profile">Edit Profile</a>
                     
                     <a class="dropdown-item" href="/logout">Logout</a>
                 </div>
@@ -84,54 +122,52 @@
               <div class="col-12 col-md-10 col-lg-10 col-xl-10">
                 <div class="card">
                   <div class="card-header">
-                    <h4 class="card-title d-inline-block">Doctors </h4> <a href="/appointment" class="btn btn-primary float-right">View all</a>
+                    <h4 class="card-title d-inline-block">Upcoming Appointments </h4> <a href="/appointment" class="btn btn-primary float-right">View all</a>
                   </div>
                   <div class="card-body p-0">
-                    <div class="col-12 col-md-6 col-lg-8 col-xl-8">
-                      <div class="form-group">
-                          
-                        <input id = "txtDoctor" type="text" class="form-control"  placeholder="Search Doctor..">
-                        <div id="searchResult"></div>                         </div>
-                  </div>
+                    
                     <div class="table-responsive">
-
                       <table class="table mb-0">
                         <thead class="d-none">
                           <tr>
-                            <th>Doctor Name</th>
-                            <th>Department</th>
+                            <th>Patient Name</th>
                             <th>Email</th>
                             <th>Address</th>
-                            <th>Phone</th>
+                            <th>Date & Time</th>
+                            <th>--</th>
                             
                           </tr>
                         </thead>
-                        <tbody id="myTable">
-                                  <% for( var i=0;i<data.length;i++ ){%>          
+                        <tbody>
+                                  <% for( var i=0;i<data.length;i++ ){%> 
+                                    <%if(data[i].status==1){%>         
                           <tr>
                             <td style="min-width: 200px;">
-                              <h5 class="time-title p-0">Doctor Name</h5>
-                              <p><%=data[i].first_name%></p>
+                              <h5 class="time-title p-0">Patient Name</h5>
+                              <p><%=data[i].username%></p>
                              
                             </td>                 
                             <td>
                               <h5 class="time-title p-0">Email</h5>
                               <p><%=data[i].email%></p>
                             </td>
+                            
                             <td>
                               <h5 class="time-title p-0">Address</h5>
                               <p><%=data[i].address%></p>
                             </td>
+
                             <td>
-                              <h5 class="time-title p-0">Phone</h5>
-                              <p><%=data[i].phone%></p>
+                              <h5 class="time-title p-0">Date & Timing</h5>
+                              <p><%=data[i].date%></p>
                             </td>
-                            <td class="text-right">
-                              <a onclick="doctorData('<%=data[i].id%>')" class="btn btn-outline-danger take-btn">Visit</a>
+                           
+                             <td>
+                              <a onclick="cancel('<%=data[i].id%>')" class="btn btn-outline-danger take-btn">Cancel</a>
                                                     </td>
                                                   
                           </tr>
-                          <%}%>
+                          <%}}%>
                           
                           
                           
@@ -143,6 +179,65 @@
                 </div>
               </div>
                  
+                </div>
+
+
+                <div class="col-12 col-md-10 col-lg-10 col-xl-10">
+                  <div class="card">
+                    <div class="card-header">
+                      <h4 class="card-title d-inline-block">Pending Appointments </h4> <a href="/appointment" class="btn btn-primary float-right">View all</a>
+                    </div>
+                    <div class="card-body p-0">
+                      <div class="table-responsive">
+                        <table class="table mb-0">
+                          <thead class="d-none">
+                            <tr>
+                              <th>Patient Name</th>
+                              <th>Email</th>
+                              <th>Address</th>
+                              <th>Time</th>
+                              
+                            </tr>
+                          </thead>
+                          <tbody>
+                                <% for( var i=0;i<data.length;i++ ){%>      
+                                      <%if(data[i].dseen!=1 && data[i].status!=1){%>    
+                            <tr>
+                              <td style="min-width: 200px;">
+                                <h5 class="time-title p-0">Patient Name</h5>
+                                <p><%=data[i].username%></p>
+                               
+                              </td>                 
+                              <td>
+                                <h5 class="time-title p-0">Email</h5>
+                                <p><%=data[i].email%></p>
+                              </td>
+                              <td>
+                                <h5 class="time-title p-0">Address</h5>
+                                <p><%=data[i].address%></p>
+                              </td>
+                              <td>
+                                <h5 class="time-title p-0">Date & Timing</h5>
+                                <p><%=data[i].date%></p>
+                              </td>
+                              <td class="text-right">
+                                  <a onclick="accept('<%=data[i].id%>')" class="btn btn-outline-danger take-btn">Accept</a>
+                                                        </td>
+                              <td class="text-right">
+                                <a onclick="cancel('<%=data[i].id%>')" class="btn btn-outline-danger take-btn">Cancel</a>
+                                                      </td>
+                                                    
+                            </tr>
+                            <%}}%>
+                            
+                            
+                            
+                          
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
                 </div>
         
           <div class="modal fade" id="myModal">
@@ -162,7 +257,7 @@
                   <div class="row">
                     <div class="col-sm-6"><h3>Appointments</h3></div>
                     <input type="text" id="did" hidden />
-                    <div class="col-sm-6"><button class="btn btn-outline-info" style="float: right;" onclick="add('<%=user.id%>',)">Add Appointment</button></div> 
+                    <div class="col-sm-6"><button class="btn btn-outline-info" style="float: right;" >Add Appointment</button></div> 
 
                   </div>
                   <br/>
@@ -193,40 +288,56 @@
     <script src="/ext/assets/js/Chart.bundle.js"></script>
    
     <script src="/ext/assets/js/app.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
 
 </body>
 
 
 <script>
 
-
-
   let selectedTime=null;
   
-  function doctorData(id){
+  function accept(id){
     $.ajax({
-        url:"/patient/doctor/"+id,
+        url:"/patient/accept/"+id,
         method:"post",
         success:function(r){
-                $("#dName").text(r.data.first_name+" "+r.data.last_name);
-                $("#pDoc").text(r.data.first_name+" "+r.data.last_name);
-                $("#did").val(r.data.id);
-                let times=r.data.times.split(",");
-                let str="";
-                if(times !=null){
-                  for(let i=0;i<times.length;i++){
-                   str+=' <li class="list-group-item d-flex justify-content-between align-items-center">'
-                    +'<div class="form-check">'
-                    +    '<label class="form-check-label" for="check1">'
-                     +   `  <input type="checkbox" class="form-check-input" id="check1" name="option1" value="${times[i]}" onclick="onlyOne(this)">${times[i]}`
-                     +  ' </label>'
-                     + '</div>'
-                    "</li>";
-                  }
-                  $("#timesData").html(str);
-                }
-                $('#myModal').modal('show');
+            if(r.r)
+               alert("done");
+
+        },error:function(err){
+           console.error(err);
+        }
+    });
+  }
+
+
+    function accept(id){
+    $.ajax({
+        url:"/patient/accept/"+id,
+        method:"post",
+        success:function(r){
+            if(r.r)
+            {
+               alert("done");
+               location.reload();
+            }
+               
+        },error:function(err){
+           console.error(err);
+        }
+    });
+  }
+
+    function cancel(id){
+    $.ajax({
+        url:"/patient/cancel/"+id,
+        method:"post",
+        success:function(r){
+            if(r.r){
+               alert("done");
+               location.reload();
+            }
+               
         },error:function(err){
            console.error(err);
         }
@@ -277,51 +388,6 @@ function add(p_id)
    }
 
 }
-
-
-
-$('#txtDoctor').keyup(function(){
-        var div = document.getElementById("searchResult");
-        var value = $(this).val().toLowerCase();
-    $("#myTable tr").filter(function() {
-      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-    });
-                if($('#txtMedicine').val()==""){
-                    div.innerHTML =""; 
-                }
-                else{
-
-                    $.ajax({
-                        method: "POST",
-                        url : "/patient/doctor/search",
-                        data: { name:  $('#txtDoctor').val().toString()},
-                        dataType: "json",
-                        success: function(allData){
-                            let str = "";
-                            console.log(allData);
-                            for(var i = 0; i<allData.data.length; i++){
-                                //console.log(allData);
-                                
-                                str += "<p id='paragraph' onclick='setOnTxt()'>"+allData.data[i].first_name+"</p><br/>";
-                            }
-                        
-                            div.innerHTML =str; 
-                        },
-                        error : function(){
-                            var div = document.getElementById("searchResult");
-                            let str = "something went wrong";
-                            div.innerHTML = str;
-                            
-                        }
-                      });
-                   }
-    });
-
-    function setOnTxt(){
-        var searchTextField = document.getElementById("txtDoctor");
-        var para = document.getElementById("paragraph");
-        searchTextField.value = para.innerHTML;
-    }
 
 </script>
 

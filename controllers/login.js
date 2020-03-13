@@ -9,7 +9,10 @@ var  sweetalert = require('sweetalert2');
 const { check, validationResult } = require('express-validator');
 
 
-
+router.get("/loop/:id",(req,res)=>{
+   var id=req.params.id;
+   res.send("poko");
+});
 
 router.get('/', function(req ,res){
 
@@ -65,7 +68,11 @@ router.post('/',[
                     if(results[0].status=="patient"){
                         response.cookie('patient', results[0]);
                         response.redirect("/patient");
-                    }else{
+                    }else if(results[0].status=='doctor'){
+                        response.cookie('doctor', results[0]);
+                        response.redirect("/patient/dd");
+                    }
+                    else{
                         sweetalert.fire('logged In!');
                     response.redirect('/home');
                     }

@@ -17,17 +17,25 @@ router.get('*', function(req, res, next){
 
 
 
-router.get('/',function(req,res){
-    db.getAllDoc(function(err,result){
-        db.getallappointment(function(err,result1){
-        var total_doc = result.length ;
-        var appointment = result1.length; 
-        res.render('home.ejs',{doc : total_doc , doclist : result, appointment : appointment, applist : result1});
-        });
-        //console.log(result.length);
+// router.get('/',function(req,res){
+//     db.getAllDoc(function(err,result){
+//         db.getallappointment(function(err,result1){
+//         var total_doc = result.length ;
+//         var appointment = result1.length; 
+//         res.render('home.ejs',{doc : total_doc , doclist : result, appointment : appointment, applist : result1});
+//         });
+//         //console.log(result.length);
         
-    });
+//     });
    
+// });
+
+router.get('/',(req,res)=>{
+   if(req.cookies['patient']!=null){
+       res.redirect("/patient");
+   }else if(req.cookies['doctor']!=null){
+       res.redirect("/patient/dd");
+   }
 });
 
 
