@@ -51,9 +51,9 @@ router.post("/cancel/:id",async(req,res)=>{
 
 router.get("/dd",async(req,res)=>{
    let id=req.cookies["doctor"].id;
-db.getappointmentbyDid(id,(err,r,d)=>{
+db.getappointmentbyDid((err,r,d)=>{
    console.log(r);
-   db.getappointmentbyDid(id,(err,rs,d)=>{
+   db.getappointmentbyDid((err,rs,d)=>{
       res.render("patient/doctor.ejs",{data:rs,d:r});
    });
    

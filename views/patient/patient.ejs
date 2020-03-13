@@ -112,112 +112,120 @@
         </div>
         <div class="page-wrapper">
             <div class="content">
-              <div class="col-12 col-md-6 col-lg-8 col-xl-8">
-                <div class="card">
-                  <div class="card-header">
-                    <h4 class="card-title d-inline-block">Upcoming Appointments </h4> <a href="/appointment" class="btn btn-primary float-right">View all</a>
-                  </div>
-                  <div class="card-body p-0">
-                    <div class="table-responsive">
-                      <table class="table mb-0">
-                        <thead class="d-none">
-                          <tr>
-                            <th>Doctor Name</th>
-                            <th>Doctor email</th>
-                            <th>Timing</th>
-                            
-                          </tr>
-                        </thead>
-                        <tbody>
-                              <%if(d){%>
-                                <%for (let i=0;i<data.length;i++)  {%>
-                                 <% if(data[i].status==1){ %>          
-                          <tr>
-                      
-                            <td style="min-width: 200px;">
-                              <h5 class="time-title p-0">Doctor Name</h5>
-                              <p><%=data[i].first_name+" "+data[i].last_name%></p>
-                             
-                            </td>                 
-                            <td>
-                              <h5 class="time-title p-0">Doctor Email</h5>
-                              <p><%=data[i].email%></p>
-                            </td>
-                            <td>
-                              <h5 class="time-title p-0">Timing</h5>
-                              <p><%=data[i].date%></p>
-                            </td>
-                            <td class="text-right">
-                              <a href="/appointment/cancel/id" class="btn btn-outline-danger take-btn">Cancel</a>
-                                                    </td>
-                                                  
-                          </tr>
-                          <%}}}%>
-                          
-                          
-                          
+            
+              <div class="row">
+                <div class="col-12 col-md-5 col-lg-5 col-xl-5">
+                  <div class="card">
+                    <div class="card-header">
+                      <h4 class="card-title d-inline-block">Upcoming Appointments </h4> 
+                    </div>
+                    <div class="card-body p-0">
+                      <div class="table-responsive">
+                        <table class="table mb-0">
+                          <thead class="d-none">
+                            <tr>
+                              <th>Doctor Name</th>
+                              <th>Doctor email</th>
+                              <th>Timing</th>
+                              
+                            </tr>
+                          </thead>
+                          <tbody>
+                                <%if(d){%>
+                                  <%for (let i=0;i<data.length;i++)  {%>
+                                   <% if(data[i].status==1){ %>          
+                            <tr>
                         
-                        </tbody>
-                      </table>
+                              <td style="min-width: 200px;">
+                                <h5 class="time-title p-0">Doctor Name</h5>
+                                <p><%=data[i].first_name+" "+data[i].last_name%></p>
+                               
+                              </td>                 
+                              <td>
+                                <h5 class="time-title p-0">Doctor Email</h5>
+                                <p><%=data[i].email%></p>
+                              </td>
+                              <td>
+                                <h5 class="time-title p-0">Timing</h5>
+                                <p><%=data[i].date%></p>
+                              </td>
+                              <td class="text-right">
+                                <a href="/appointment/cancel/id" class="btn btn-outline-danger take-btn">Cancel</a>
+                                                      </td>
+                                                    
+                            </tr>
+                            <%}}}%>
+                            
+                            
+                            
+                          
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-12 col-md-5 col-lg-5 col-xl-5">
+                  <div class="card">
+                    <div class="card-header">
+                      <h4 class="card-title d-inline-block">Pending Appointments </h4> 
+                    </div>
+                    <div class="card-body p-0">
+                      <div class="table-responsive">
+                        <table class="table mb-0">
+                          <thead class="d-none">
+                            <tr>
+                              <th>Doctor Name</th>
+                              <th>Doctor email</th>
+                              <th>Timing</th>
+                              
+                            </tr>
+                          </thead>
+                          <tbody>
+                                              
+                            <%for (let i=0;i<data.length;i++)  {%>
+                              <% if(data[i].status==0){ %>          
+                       <tr>
+                   
+                         <td style="min-width: 200px;">
+                           <h5 class="time-title p-0">Doctor Name</h5>
+                           <p><%=data[i].first_name+" "+data[i].last_name%></p>
+                          
+                         </td>                 
+                         <td>
+                           <h5 class="time-title p-0">Doctor Email</h5>
+                           <p><%=data[i].email%></p>
+                         </td>
+                         <td>
+                           <h5 class="time-title p-0">Timing</h5>
+                           <p><%=data[i].date%></p>
+                         </td>
+                         <td class="text-right">
+                           <a href="/patient/update/appointment/cancel/<%=data[i].id%>/<%=d[0].id%>" class="btn btn-outline-danger take-btn">Cancel</a>
+                                                 </td>
+                                               
+                       </tr>
+                       <%}}%>
+                       
+                       
+                            
+                            
+                            
+                          
+                          </tbody>
+                        </table>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
 
 
-              <div class="col-12 col-md-6 col-lg-8 col-xl-8">
-                <div class="card">
-                  <div class="card-header">
-                    <h4 class="card-title d-inline-block">Pending Appointments </h4> <a href="/appointment" class="btn btn-primary float-right">View all</a>
-                  </div>
-                  <div class="card-body p-0">
-                    <div class="table-responsive">
-                      <table class="table mb-0">
-                        <thead class="d-none">
-                          <tr>
-                            <th>Doctor Name</th>
-                            <th>Doctor email</th>
-                            <th>Timing</th>
-                            
-                          </tr>
-                        </thead>
-                        <tbody>
-                                            
-                          <%for (let i=0;i<data.length;i++)  {%>
-                            <% if(data[i].status==0){ %>          
-                     <tr>
-                 
-                       <td style="min-width: 200px;">
-                         <h5 class="time-title p-0">Doctor Name</h5>
-                         <p><%=data[i].first_name+" "+data[i].last_name%></p>
-                        
-                       </td>                 
-                       <td>
-                         <h5 class="time-title p-0">Doctor Email</h5>
-                         <p><%=data[i].email%></p>
-                       </td>
-                       <td>
-                         <h5 class="time-title p-0">Timing</h5>
-                         <p><%=data[i].date%></p>
-                       </td>
-                       <td class="text-right">
-                         <a href="/patient/update/appointment/cancel/<%=data[i].id%>/<%=d[0].id%>" class="btn btn-outline-danger take-btn">Cancel</a>
-                                               </td>
-                                             
-                     </tr>
-                     <%}}%>
-                     
-                     
-                          
-                          
-                          
-                        
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
-                </div>
-              </div>
+             
+
+
+              
                  
                 </div>
        

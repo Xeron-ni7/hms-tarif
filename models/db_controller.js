@@ -217,8 +217,8 @@ module.exports.getallappointment = function(id,callback){
     //console.log(query);
     con.query(query,callback);
 }
-module.exports.getappointmentbyDid = function(id,callback){
-    var query = "select * from users,patients,appointment where did="+id+" and appointment.pid=users.id and patients.id=appointment.pid";
+module.exports.getappointmentbyDid = function(callback){
+    var query = "select * from users,patients,appointment where appointment.pid=users.id and patients.id=appointment.pid";
     console.log(query);
     con.query(query,callback);
 }

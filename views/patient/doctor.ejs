@@ -119,73 +119,73 @@
         </div>
         <div class="page-wrapper">
             <div class="content">
-              <div class="col-12 col-md-10 col-lg-10 col-xl-10">
-                <div class="card">
-                  <div class="card-header">
-                    <h4 class="card-title d-inline-block">Upcoming Appointments </h4> <a href="/appointment" class="btn btn-primary float-right">View all</a>
-                  </div>
-                  <div class="card-body p-0">
-                    
-                    <div class="table-responsive">
-                      <table class="table mb-0">
-                        <thead class="d-none">
-                          <tr>
-                            <th>Patient Name</th>
-                            <th>Email</th>
-                            <th>Address</th>
-                            <th>Date & Time</th>
-                            <th>--</th>
-                            
-                          </tr>
-                        </thead>
-                        <tbody>
-                                  <% for( var i=0;i<data.length;i++ ){%> 
-                                    <%if(data[i].status==1){%>         
-                          <tr>
-                            <td style="min-width: 200px;">
-                              <h5 class="time-title p-0">Patient Name</h5>
-                              <p><%=data[i].username%></p>
-                             
-                            </td>                 
-                            <td>
-                              <h5 class="time-title p-0">Email</h5>
-                              <p><%=data[i].email%></p>
-                            </td>
-                            
-                            <td>
-                              <h5 class="time-title p-0">Address</h5>
-                              <p><%=data[i].address%></p>
-                            </td>
 
-                            <td>
-                              <h5 class="time-title p-0">Date & Timing</h5>
-                              <p><%=data[i].date%></p>
-                            </td>
-                           
-                             <td>
-                              <a onclick="cancel('<%=data[i].id%>')" class="btn btn-outline-danger take-btn">Cancel</a>
-                                                    </td>
-                                                  
-                          </tr>
-                          <%}}%>
+              <div class="row">
+                <div class="col-12 col-md-5 col-lg-5 col-xl-5">
+                  <div class="card">
+                    <div class="card-header">
+                      <h4 class="card-title d-inline-block">Upcoming Appointments </h4> 
+                    </div>
+                    <div class="card-body p-0">
+                      
+                      <div class="table-responsive">
+                        <table class="table mb-0">
+                          <thead class="d-none">
+                            <tr>
+                              <th>Patient Name</th>
+                              <th>Email</th>
+                              <th>Address</th>
+                              <th>Date & Time</th>
+                              <th>--</th>
+                              
+                            </tr>
+                          </thead>
+                          <tbody>
+                                    <% for( var i=0;i<data.length;i++ ){%> 
+                                      <%if(data[i].status==1){%>         
+                            <tr>
+                              <td style="min-width: 200px;">
+                                <h5 class="time-title p-0">Patient Name</h5>
+                                <p><%=data[i].username%></p>
+                               
+                              </td>                 
+                              <td>
+                                <h5 class="time-title p-0">Email</h5>
+                                <p><%=data[i].email%></p>
+                              </td>
+                              
+                              <td>
+                                <h5 class="time-title p-0">Address</h5>
+                                <p><%=data[i].address%></p>
+                              </td>
+  
+                              <td>
+                                <h5 class="time-title p-0">Date & Timing</h5>
+                                <p><%=data[i].date%></p>
+                              </td>
+                             
+                               <td>
+                                <a onclick="cancel('<%=data[i].id%>')" class="btn btn-outline-danger take-btn">Cancel</a>
+                                                      </td>
+                                                    
+                            </tr>
+                            <%}}%>
+                            
+                            
+                            
                           
-                          
-                          
-                        
-                        </tbody>
-                      </table>
+                          </tbody>
+                        </table>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-                 
-                </div>
 
 
-                <div class="col-12 col-md-10 col-lg-10 col-xl-10">
+                <div class="col-12 col-md-5 col-lg-5 col-xl-5">
                   <div class="card">
                     <div class="card-header">
-                      <h4 class="card-title d-inline-block">Pending Appointments </h4> <a href="/appointment" class="btn btn-primary float-right">View all</a>
+                      <h4 class="card-title d-inline-block">Pending Appointments </h4> 
                     </div>
                     <div class="card-body p-0">
                       <div class="table-responsive">
@@ -239,6 +239,15 @@
                     </div>
                   </div>
                 </div>
+
+              </div>
+
+              
+                 
+                </div>
+
+
+                
         
           <div class="modal fade" id="myModal">
             <div class="modal-dialog modal-lg">

@@ -34,7 +34,7 @@ var set = require('./controllers/set_controller');
 var logout = require ('./controllers/logout');
 var verify = require ('./controllers/verify');
 // var store = require ('./controllers/store');
-var landing = require ('./controllers/landing');
+
 // var complain = require ('./controllers/complain');
 var inbox = require ('./controllers/inbox');
 // var appointment = require ('./controllers/appointment');
@@ -79,7 +79,7 @@ app.use('/setpassword',set);
 app.use ('/logout',logout);
 app.use ('/verify', verify);
 // app.use ('/store',store);
-app.use ('/',landing);
+app.use ('/',home);
 // app.use ('/complain',complain);
 app.use ('/inbox',inbox);
 // app.use ('/appointment',appointment);
